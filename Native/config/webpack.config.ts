@@ -11,11 +11,11 @@ const config: webpack.Configuration = {
 	},
 	output: {
 		path: path.resolve(__dirname, '../dist'),
-		filename: 'ts/index.ts',
+		filename: 'js/index.js',
 		assetModuleFilename: 'images/[hash][ext][query]',
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.tsx', '.scss'],
+		extensions: ['.js', '.ts', '.less'],
 		alias: {
 			'@native': path.resolve(__dirname, '../src'),
 		},
