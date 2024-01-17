@@ -15,7 +15,7 @@ const config: webpack.Configuration = {
 		assetModuleFilename: 'images/[hash][ext][query]',
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.less'],
+		extensions: ['.js', '.ts', '.less', 'html'],
 		alias: {
 			'@native': path.resolve(__dirname, '../src'),
 		},

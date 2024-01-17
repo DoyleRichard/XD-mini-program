@@ -1,0 +1,91 @@
+#root {
+	padding: 20rpx 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-y: scroll;
+	background-color: #1e1e1e;
+}
+
+#iphone {
+	height: calc(2596px / 2);
+	width: calc(1300px / 2);
+	position: relative;
+	margin: 0 auto;
+
+	.iphone__device {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		z-index: 100;
+		background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/iphone1.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+		pointer-events: none;
+	}
+
+	.iphone__screen {
+		position: absolute;
+		z-index: 1;
+		left: calc(87px / 2);
+		top: calc(80px / 2);
+		width: calc(1125px / 2);
+		height: calc(2436px / 2);
+		background-color: #fff;
+		overflow: hidden;
+
+		.iphone__status-bar {
+			height: calc(132px / 2);
+			position: absolute;
+			left: 0;
+			right: 0;
+			z-index: 100;
+			pointer-events: none;
+
+			&.iphone__status-bar--white {
+				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/status-bar-white.png');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			&.iphone__status-bar--black {
+				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/status-bar.png');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+		}
+
+		.iphone__home-touch-bar {
+			position: absolute;
+			z-index: 100;
+			height: calc(102px / 2);
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			&.iphone__home-touch-bar--white {
+				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/home-touh-bar-white.png');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			&.iphone__home-touch-bar--black {
+				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/home-touh-bar.png');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+		}
+
+		.iphone__apps {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+	}
+}
