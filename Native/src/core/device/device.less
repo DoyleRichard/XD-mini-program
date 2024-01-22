@@ -1,3 +1,5 @@
+@import '@native/less/funcs.less';
+
 #root {
 	padding: 20rpx 0;
 	position: absolute;
@@ -6,7 +8,7 @@
 	right: 0;
 	bottom: 0;
 	overflow-y: scroll;
-	background-color: #1e1e1e;
+	background-color: #282828;
 }
 
 #iphone {
@@ -22,7 +24,8 @@
 		left: 0;
 		top: 0;
 		z-index: 100;
-		background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/iphone1.png');
+		// background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/iphone1.png');
+		background-image: url('@{cdn}/iphone1.png');
 		background-repeat: no-repeat;
 		background-size: cover;
 		pointer-events: none;
@@ -47,13 +50,13 @@
 			pointer-events: none;
 
 			&.iphone__status-bar--white {
-				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/status-bar-white.png');
+				background-image: url('@{cdn}/status-bar-white.png');
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
 
 			&.iphone__status-bar--black {
-				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/status-bar.png');
+				background-image: url('@{cdn}/status-bar.png');
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
@@ -68,13 +71,13 @@
 			bottom: 0;
 
 			&.iphone__home-touch-bar--white {
-				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/home-touh-bar-white.png');
+				background-image: url('@{cdn}/home-touh-bar-white.png');
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
 
 			&.iphone__home-touch-bar--black {
-				background-image: url('https://lightcommunity-1310613549.cos.ap-nanjing.myqcloud.com/XD-mini-program/home-touh-bar.png');
+				background-image: url('@{cdn}/home-touh-bar.png');
 				background-repeat: no-repeat;
 				background-size: cover;
 			}

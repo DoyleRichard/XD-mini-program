@@ -7,5 +7,5 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/native', express.static(path.join(__dirname, 'dist')))
 app.listen(port, () => {
-	console.log(`${port} running`)
+	console.log(`port:${port} is running`)
 })
