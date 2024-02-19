@@ -61,4 +61,33 @@ export class Application {
 		view.rootElement.classList.remove('wx-native-view--enter-anima')
 		view.rootElement.classList.remove('wx-native-view--instage')
 	}
+
+	async popView() {
+		if (this.viewList.length < 2) {
+			return
+		}
+
+		if (!this.done) {
+			return
+		}
+
+		this.done = false
+
+		const view = this.viewList[this.viewList.length - 2]
+		const preView = this.viewList[this.viewList.length - 1]
+
+		view.rootElement.classList.remove('wx-native-view--slide-out')
+		view.rootElement.classList.add('wx-native-view--instage')
+		view.rootElement.classList.add('wx-native-view--enter-anima')
+
+		preView.rootElement.classList.remove('wx-native-view--instage')
+		preView.rootElement.classList.add('wx-native-view--before-enter')
+		preView.rootElement.classList.add('wx-native-view--enter-anima')
+		await sleep(540)
+		this.done = true
+		this.viewList.pop()
+		this.windowElement.removeChild(preView.rootElement)
+
+		view.rootElement.classList.remove('wx-native-view--enter-anima')
+	}
 }

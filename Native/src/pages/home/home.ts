@@ -23,11 +23,11 @@ export class Home extends PageInstance {
 	bindEvent() {
 		const btn = this.rootElement.querySelector('.weixin-app__miniprogram-entry') as HTMLElement
 		btn.onclick = () => {
-			this.jumpTpMiniAppListPage()
+			this.jumpToMiniAppListPage()
 		}
 	}
 
-	jumpTpMiniAppListPage() {
+	jumpToMiniAppListPage() {
 		const appListPage = new MiniAppList()
 		this.parent.pushView(appListPage)
 	}
