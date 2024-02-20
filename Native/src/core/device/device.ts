@@ -3,23 +3,23 @@ import DeviceTpl from './device.html'
 import { Application } from '../application/application'
 
 export class Device {
-	RootElement: Element = document.querySelector('#root')
+	rootElement: Element = document.querySelector('#root')
 	appContainer: Element
 
 	constructor() {
-		this.RootElement = document.querySelector('#root')
+		this.rootElement = document.querySelector('#root')
 		this.init()
 	}
 
 	init() {
-		this.RootElement.innerHTML = DeviceTpl
+		this.rootElement.innerHTML = DeviceTpl
 		this.appContainer = document.querySelector('.iphone__apps')
 		this.updateDeviceBarColor('balck')
 	}
 
 	updateDeviceBarColor(color: 'balck' | 'white' = 'white') {
-		const statusBar = this.RootElement.querySelector('.iphone__status-bar')
-		const homeBar = this.RootElement.querySelector('.iphone__home-touch-bar')
+		const statusBar = this.rootElement.querySelector('.iphone__status-bar')
+		const homeBar = this.rootElement.querySelector('.iphone__home-touch-bar')
 		if (color === 'white') {
 			statusBar.classList.add('iphone__status-bar--white')
 			statusBar.classList.remove('iphone__status-bar--black')
@@ -36,6 +36,6 @@ export class Device {
 
 	open(app: Application) {
 		app.parent = this
-		this.appContainer.appendChild(app.RootElement)
+		this.appContainer.appendChild(app.rootElement)
 	}
 }

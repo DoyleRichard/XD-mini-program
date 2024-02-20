@@ -3,9 +3,10 @@ import { Device } from '../device/device'
 import './application.less'
 import { MiniAppList } from '@native/pages/miniAppList/miniAppList'
 import { sleep } from '@native/utils/util'
+import { miniAppSanbox } from '../miniAppSanbox/miniAppSanbox'
 
 export class Application {
-	RootElement: HTMLDivElement = document.createElement('div')
+	rootElement: HTMLDivElement = document.createElement('div')
 	windowElement: HTMLDivElement
 	viewList: PageInstance[] = []
 	rootView: PageInstance
@@ -17,10 +18,10 @@ export class Application {
 	}
 
 	init() {
-		this.RootElement.classList.add('wx-application')
+		this.rootElement.classList.add('wx-application')
 		this.windowElement = document.createElement('div')
 		this.windowElement.classList.add('wx-native-window')
-		this.RootElement.appendChild(this.windowElement)
+		this.rootElement.appendChild(this.windowElement)
 	}
 
 	initRootView(view: PageInstance) {
@@ -89,5 +90,36 @@ export class Application {
 		this.windowElement.removeChild(upperView.rootElement)
 
 		lowerView.rootElement.classList.remove('wx-native-view--enter-anima')
+	}
+
+	async presentView(view: miniAppSanbox, useCache = false) {
+		if (!this.done) {
+			return
+		}
+		this.done = false
+
+		const preView = this.viewList[this.viewList.length - 1]
+
+		view.parent = this
+		view.rootElement.style.zIndex = `${this.viewList.length + 1}`
+		view.rootElement.classList.add('wx-native-view--before-present')
+		view.rootElement.classList.add('wx-native-view--enter-anima')
+		preView.rootElement.classList.add('wx-native-view--before-presenting')
+		preView.rootElement.classList.remove('wx-native-view--instage')
+		preView.rootElement.classList.add('wx-native-view--enter-anima')
+		// preView.onPresentOut && preView.onPresentOut();
+		// view.onPresentIn && view.onPresentIn();
+		!useCache && this.rootElement.appendChild(view.rootElement)
+		this.viewList.push(view)
+		!useCache && view.viewDidLoad && view.viewDidLoad()
+		await sleep(20)
+		preView.rootElement.classList.add('wx-native-view--presenting')
+		view.rootElement.classList.add('wx-native-view--instage')
+		await sleep(540)
+		this.done = true
+		view.rootElement.classList.remove('wx-native-view--before-present')
+		view.rootElement.classList.remove('wx-native-view--enter-anima')
+		preView.rootElement.classList.remove('wx-native-view--enter-anima')
+		preView.rootElement.classList.remove('wx-native-view--before-presenting')
 	}
 }
