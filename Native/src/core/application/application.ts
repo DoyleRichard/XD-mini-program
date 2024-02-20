@@ -73,21 +73,21 @@ export class Application {
 
 		this.done = false
 
-		const view = this.viewList[this.viewList.length - 2]
-		const preView = this.viewList[this.viewList.length - 1]
+		const lowerView = this.viewList[this.viewList.length - 2]
+		const upperView = this.viewList[this.viewList.length - 1]
 
-		view.rootElement.classList.remove('wx-native-view--slide-out')
-		view.rootElement.classList.add('wx-native-view--instage')
-		view.rootElement.classList.add('wx-native-view--enter-anima')
+		lowerView.rootElement.classList.remove('wx-native-view--slide-out')
+		lowerView.rootElement.classList.add('wx-native-view--instage')
+		lowerView.rootElement.classList.add('wx-native-view--enter-anima')
 
-		preView.rootElement.classList.remove('wx-native-view--instage')
-		preView.rootElement.classList.add('wx-native-view--before-enter')
-		preView.rootElement.classList.add('wx-native-view--enter-anima')
+		upperView.rootElement.classList.remove('wx-native-view--instage')
+		upperView.rootElement.classList.add('wx-native-view--before-enter')
+		upperView.rootElement.classList.add('wx-native-view--enter-anima')
 		await sleep(540)
 		this.done = true
 		this.viewList.pop()
-		this.windowElement.removeChild(preView.rootElement)
+		this.windowElement.removeChild(upperView.rootElement)
 
-		view.rootElement.classList.remove('wx-native-view--enter-anima')
+		lowerView.rootElement.classList.remove('wx-native-view--enter-anima')
 	}
 }
