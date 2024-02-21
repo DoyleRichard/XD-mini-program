@@ -1,20 +1,24 @@
 import './miniAppSanbox.less'
 import tpl from './miniAppSanbox.html'
 import { PageInstance } from '@native/pages/page'
+import { Application } from '../application/application'
+import { IBarColor } from '../device/device'
+import { AppManager } from '../appManager/appManager'
 
+export type IAppInfo = {
+	appId: string
+	scene: number
+	appName: string
+	logo: string
+	pagePath: string
+	query: Record<string, any>
+}
 export class miniAppSanbox extends PageInstance {
-	appInfo: any = null
-	parent: any = null
+	appInfo: IAppInfo = null
+	parent: Application = null
 	rootElement = document.createElement('div')
 
-	constructor(opts: {
-		appId: string
-		scene: number
-		appName: string
-		logo: string
-		pagePath: string
-		query: Record<string, any>
-	}) {
+	constructor(opts: IAppInfo) {
 		super()
 		this.appInfo = opts
 		this.rootElement.classList.add('wx-native-view')
@@ -22,22 +26,53 @@ export class miniAppSanbox extends PageInstance {
 
 	viewDidLoad() {
 		this.initPageFrame()
+		this.showLaunchScreen()
+		this.bindCloseEvent()
 	}
 
 	initPageFrame() {
 		this.rootElement.innerHTML = tpl
 	}
 
+	showLaunchScreen() {
+		const launchScreen = this.rootElement.querySelector('.wx-mini-app__launch-screen') as HTMLDivElement
+		const name = this.rootElement.querySelector('.wx-mini-app__name')
+		const logo = this.rootElement.querySelector('.wx-mini-app__logo-img-url') as HTMLImageElement
+
+		this.updateActionColorStyle('black')
+		name.innerHTML = this.appInfo.appName
+		logo.src = this.appInfo.logo
+		launchScreen.style.display = 'block'
+	}
+
+	updateActionColorStyle(color: IBarColor) {
+		const action = this.rootElement.querySelector('.wx-mini-app-navigation__actions')
+
+		if (color === 'white') {
+			action.classList.remove('wx-mini-app-navigation__actions--black')
+			action.classList.add('wx-mini-app-navigation__actions--white')
+		}
+
+		if (color === 'black') {
+			action.classList.remove('wx-mini-app-navigation__actions--white')
+			action.classList.add('wx-mini-app-navigation__actions--black')
+		}
+
+		this.parent.updateStatusBarColor(color)
+	}
+
+	bindCloseEvent() {
+		const btn = this.rootElement.querySelector('.wx-mini-app-navigation__actions-close') as HTMLLIElement
+		btn.onclick = () => {
+			AppManager.closeApp(this)
+		}
+	}
+
 	onPresentIn() {
-		// const currentBridge = this.bridgeList[this.bridgeList.length - 1];
-		// currentBridge && currentBridge.appShow();
-		// currentBridge && currentBridge.pageShow();
-		// currentBridge && this.updateTargetPageColorStyle(currentBridge.opts.pagePath);
+		console.log('miniAppSanbox onPresentIn')
 	}
 
 	onPresentOut() {
-		// const currentBridge = this.bridgeList[this.bridgeList.length - 1];
-		// currentBridge && currentBridge.appHide();
-		// currentBridge && currentBridge.pageHide();
+		console.log('miniAppSanbox onPresentOut')
 	}
 }

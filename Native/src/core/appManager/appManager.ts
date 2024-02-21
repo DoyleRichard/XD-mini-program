@@ -23,5 +23,7 @@ export class AppManager {
 		wx.presentView(miniApp)
 	}
 
-	static closeApp(miniApp: any) {}
+	static closeApp(miniApp: miniAppSanbox) {
+		miniApp.parent.dismissView()
+	}
 }

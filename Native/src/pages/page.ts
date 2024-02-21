@@ -4,4 +4,6 @@ export class PageInstance {
 	id: string
 	rootElement: HTMLDivElement
 	parent: Application
+	onPresentIn() {}
+	onPresentOut() {}
 }

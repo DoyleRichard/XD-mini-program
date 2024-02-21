@@ -88,4 +88,12 @@ export class MiniAppList {
 
 		return appInfo
 	}
+
+	onPresentIn() {
+		console.log('miniAppList onPresentIn')
+	}
+
+	onPresentOut() {
+		console.log('miniAppList onPresentOut')
+	}
 }

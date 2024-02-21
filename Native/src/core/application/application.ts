@@ -1,5 +1,5 @@
 import { PageInstance } from '@native/pages/page'
-import { Device } from '../device/device'
+import { Device, IBarColor } from '../device/device'
 import './application.less'
 import { MiniAppList } from '@native/pages/miniAppList/miniAppList'
 import { sleep } from '@native/utils/util'
@@ -107,18 +107,53 @@ export class Application {
 		preView.rootElement.classList.add('wx-native-view--before-presenting')
 		preView.rootElement.classList.remove('wx-native-view--instage')
 		preView.rootElement.classList.add('wx-native-view--enter-anima')
-		// preView.onPresentOut && preView.onPresentOut();
-		// view.onPresentIn && view.onPresentIn();
+		preView.onPresentOut()
+		view.onPresentIn()
 		!useCache && this.rootElement.appendChild(view.rootElement)
 		this.viewList.push(view)
-		!useCache && view.viewDidLoad && view.viewDidLoad()
+		!useCache && view.viewDidLoad()
 		await sleep(20)
+
 		preView.rootElement.classList.add('wx-native-view--presenting')
 		view.rootElement.classList.add('wx-native-view--instage')
 		await sleep(540)
+
 		this.done = true
 		view.rootElement.classList.remove('wx-native-view--before-present')
 		view.rootElement.classList.remove('wx-native-view--enter-anima')
+		preView.rootElement.classList.remove('wx-native-view--enter-anima')
+		preView.rootElement.classList.remove('wx-native-view--before-presenting')
+	}
+
+	updateStatusBarColor(color: IBarColor) {
+		this.parent.updateDeviceBarColor(color)
+	}
+
+	async dismissView(opts: { destroy?: boolean } = {}) {
+		if (!this.done) {
+			return
+		}
+		this.done = false
+
+		const preView = this.viewList[this.viewList.length - 2]
+		const currentView = this.viewList[this.viewList.length - 1]
+		const { destroy = true } = opts
+
+		currentView.rootElement.classList.add('wx-native-view--enter-anima')
+		preView.rootElement.classList.add('wx-native-view--enter-anima')
+		preView.rootElement.classList.add('wx-native-view--before-presenting')
+		await sleep(0)
+		currentView.rootElement.classList.add('wx-native-view--before-present')
+		currentView.rootElement.classList.remove('wx-native-view--instage')
+		preView.rootElement.classList.remove('wx-native-view--presenting')
+
+		preView.onPresentIn()
+		currentView.onPresentOut()
+
+		await sleep(540)
+		this.done = true
+		destroy && this.rootElement.removeChild(currentView.rootElement)
+		this.viewList.pop()
 		preView.rootElement.classList.remove('wx-native-view--enter-anima')
 		preView.rootElement.classList.remove('wx-native-view--before-presenting')
 	}

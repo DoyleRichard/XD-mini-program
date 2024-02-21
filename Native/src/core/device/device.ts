@@ -2,6 +2,7 @@ import './device.less'
 import DeviceTpl from './device.html'
 import { Application } from '../application/application'
 
+export type IBarColor = 'black' | 'white'
 export class Device {
 	rootElement: Element = document.querySelector('#root')
 	appContainer: Element
@@ -14,10 +15,10 @@ export class Device {
 	init() {
 		this.rootElement.innerHTML = DeviceTpl
 		this.appContainer = document.querySelector('.iphone__apps')
-		this.updateDeviceBarColor('balck')
+		this.updateDeviceBarColor('black')
 	}
 
-	updateDeviceBarColor(color: 'balck' | 'white' = 'white') {
+	updateDeviceBarColor(color: IBarColor = 'white') {
 		const statusBar = this.rootElement.querySelector('.iphone__status-bar')
 		const homeBar = this.rootElement.querySelector('.iphone__home-touch-bar')
 		if (color === 'white') {
@@ -26,7 +27,7 @@ export class Device {
 			homeBar.classList.add('iphone__home-touch-bar--white')
 			homeBar.classList.remove('iphone__home-touch-bar--black')
 		}
-		if (color === 'balck') {
+		if (color === 'black') {
 			statusBar.classList.remove('iphone__status-bar--white')
 			statusBar.classList.add('iphone__status-bar--black')
 			homeBar.classList.remove('iphone__home-touch-bar--white')
