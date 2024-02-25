@@ -4,6 +4,7 @@ import { PageInstance } from '@native/pages/page'
 import { Application } from '../application/application'
 import { IBarColor } from '../device/device'
 import { AppManager } from '../appManager/appManager'
+import { mergePageConfig, readFile } from '@native/utils/util'
 
 export type IAppInfo = {
 	appId: string
@@ -13,10 +14,17 @@ export type IAppInfo = {
 	pagePath: string
 	query: Record<string, any>
 }
+
+export type IAppConfig = {
+	app: Record<string, any>
+	modules: Record<string, any>
+}
 export class miniAppSanbox extends PageInstance {
+	id: string = Math.random().toString()
 	appInfo: IAppInfo = null
 	parent: Application = null
 	rootElement = document.createElement('div')
+	appConfig: IAppConfig = null
 
 	constructor(opts: IAppInfo) {
 		super()
@@ -28,6 +36,16 @@ export class miniAppSanbox extends PageInstance {
 		this.initPageFrame()
 		this.showLaunchScreen()
 		this.bindCloseEvent()
+		this.initPage()
+	}
+
+	async initPage() {
+		const configPath = `${this.appInfo.appId}/config.json`
+		const configContent = await readFile(configPath)
+		this.appConfig = JSON.parse(configContent)
+		const entryPagePath: string = this.appInfo.pagePath || this.appConfig.app.entryPagePath
+		this.updateTargetPageColorStyle(entryPagePath)
+		this.hideLaunchScreen()
 	}
 
 	initPageFrame() {
@@ -45,6 +63,8 @@ export class miniAppSanbox extends PageInstance {
 		launchScreen.style.display = 'block'
 	}
 
+	hideLaunchScreen() {}
+
 	updateActionColorStyle(color: IBarColor) {
 		const action = this.rootElement.querySelector('.wx-mini-app-navigation__actions')
 
@@ -59,6 +79,13 @@ export class miniAppSanbox extends PageInstance {
 		}
 
 		this.parent.updateStatusBarColor(color)
+	}
+
+	updateTargetPageColorStyle(pagePath: string) {
+		const pageConfig = this.appConfig.modules[pagePath]
+		const mergeConfig = mergePageConfig(this.appConfig.app, pageConfig)
+
+		this.updateActionColorStyle(mergeConfig.navigationBarTextStyle)
 	}
 
 	bindCloseEvent() {
