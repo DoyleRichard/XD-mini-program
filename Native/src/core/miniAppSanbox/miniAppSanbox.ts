@@ -5,6 +5,8 @@ import { Application } from '../application/application'
 import { IBarColor } from '../device/device'
 import { AppManager } from '../appManager/appManager'
 import { mergePageConfig, readFile } from '@native/utils/util'
+import { Bridge } from '../bridge'
+import { JSCore } from '../jscore'
 
 export type IAppInfo = {
 	appId: string
@@ -25,10 +27,13 @@ export class miniAppSanbox extends PageInstance {
 	parent: Application = null
 	rootElement = document.createElement('div')
 	appConfig: IAppConfig = null
+	bridgeList: Bridge[] = []
+	jscore: JSCore = new JSCore()
 
 	constructor(opts: IAppInfo) {
 		super()
 		this.appInfo = opts
+		this.jscore.parent = this
 		this.rootElement.classList.add('wx-native-view')
 	}
 
@@ -45,7 +50,19 @@ export class miniAppSanbox extends PageInstance {
 		this.appConfig = JSON.parse(configContent)
 		const entryPagePath: string = this.appInfo.pagePath || this.appConfig.app.entryPagePath
 		this.updateTargetPageColorStyle(entryPagePath)
+
+		const entryPageBridge = this.createBridge({})
+		this.bridgeList.push(entryPageBridge)
+		console.log(this.bridgeList)
+
 		this.hideLaunchScreen()
+	}
+
+	createBridge(otps: any) {
+		const bridge = new Bridge(otps)
+		bridge.parent = this
+
+		return bridge
 	}
 
 	initPageFrame() {
