@@ -15,6 +15,7 @@ export class JSCore {
 		const urlObj = window.URL.createObjectURL(jsBlob)
 
 		this.worker = new Worker(urlObj)
+		this.bindEventListener()
 
 		setTimeout(() => {
 			this.worker.postMessage({
@@ -22,5 +23,12 @@ export class JSCore {
 				body: { a: 'from Native JSCore.' },
 			})
 		}, 1000)
+	}
+
+	bindEventListener() {
+		this.worker.addEventListener('message', e => {
+			const msg = e.data
+			console.log('Native JSCore: ', msg)
+		})
 	}
 }

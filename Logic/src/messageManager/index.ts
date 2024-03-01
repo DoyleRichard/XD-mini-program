@@ -7,8 +7,10 @@ class MessageManager {
 
 	init() {
 		this.message.receive('test', (msg: any) => {
-			console.log('messageManager: ', msg)
+			console.log('Logic messageManager: ', msg)
 		})
+
+		this.message.send('from Logic messageManager')
 	}
 }
 

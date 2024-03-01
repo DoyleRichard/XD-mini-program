@@ -24,6 +24,10 @@ class Message {
 	receive(type: IType, callback: any) {
 		this.event.on(type, callback)
 	}
+
+	send(msg: any) {
+		global.postMessage(msg)
+	}
 }
 
 export default new Message()
