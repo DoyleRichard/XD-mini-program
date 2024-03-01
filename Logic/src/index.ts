@@ -1,1 +1,3 @@
-console.log(111)
+import messageManager from './messageManager'
+
+messageManager.init()

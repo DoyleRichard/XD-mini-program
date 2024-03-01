@@ -15,5 +15,12 @@ export class JSCore {
 		const urlObj = window.URL.createObjectURL(jsBlob)
 
 		this.worker = new Worker(urlObj)
+
+		setTimeout(() => {
+			this.worker.postMessage({
+				type: 'test',
+				body: { a: 'from Native JSCore.' },
+			})
+		}, 1000)
 	}
 }
