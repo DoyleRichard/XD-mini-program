@@ -34,7 +34,6 @@ export class miniAppSanbox extends PageInstance {
 		super()
 		this.appInfo = opts
 		this.jscore.parent = this
-		this.jscore.addEventListener('message', this.jscoreMessageHandler.bind(this))
 		this.rootElement.classList.add('wx-native-view')
 	}
 
@@ -46,15 +45,17 @@ export class miniAppSanbox extends PageInstance {
 	}
 
 	async initPage() {
+		await this.jscore.init()
+		this.jscore.addEventListener('message', this.jscoreMessageHandler.bind(this))
+		this.jscore.postMessage({ type: 'test', body: { a: 'from native miniAppSanbox' } })
+
 		const configPath = `${this.appInfo.appId}/config.json`
 		const configContent = await readFile(configPath)
 		this.appConfig = JSON.parse(configContent)
 		const entryPagePath: string = this.appInfo.pagePath || this.appConfig.app.entryPagePath
 		this.updateTargetPageColorStyle(entryPagePath)
 
-		const entryPageBridge = this.createBridge({
-			jscore: this.jscore,
-		})
+		const entryPageBridge = this.createBridge({ jscore: this.jscore })
 		this.bridgeList.push(entryPageBridge)
 		console.log(this.bridgeList)
 

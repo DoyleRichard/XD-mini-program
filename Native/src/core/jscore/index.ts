@@ -11,9 +11,7 @@ export class JSCore {
 	worker: Worker = null
 	event = mitt()
 
-	constructor() {
-		this.init()
-	}
+	constructor() {}
 
 	async init() {
 		const jsContent = await fetch('http://localhost:6325/logic/core.js')
