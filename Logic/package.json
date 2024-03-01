@@ -5,8 +5,13 @@
 	"main": "index.js",
 	"scripts": {
 		"appCompile": "tsc -p ./config/app.tsconfig.json",
-		"serve": "node app.js",
-		"dev": "webpack --config ./config/webpack.config.ts --watch"
+		"appServe": "node app.js",
+		"appDev": "npm run appCompile & npm run appServe",
+		"formatCode": "prettier . --write",
+		"nativeBuild": "webpack --config ./config/webpack.config.ts",
+		"nativeBuildWatch": "webpack --config ./config/webpack.config.ts --watch",
+		"nativeDev": "webpack --config ./config/webpack.config.ts --watch",
+		"dev": "npm run formatCode & npm run nativeBuild & npm run appDev"
 	},
 	"author": "Doyle Richard",
 	"license": "MIT",
