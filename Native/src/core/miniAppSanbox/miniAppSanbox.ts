@@ -5,8 +5,8 @@ import { Application } from '../application/application'
 import { IBarColor } from '../device/device'
 import { AppManager } from '../appManager/appManager'
 import { mergePageConfig, readFile } from '@native/utils/util'
-import { Bridge } from '../bridge'
-import { JSCore } from '../jscore'
+import { Bridge, IBridgeOpts } from '../bridge'
+import { IMsg, JSCore } from '../jscore'
 
 export type IAppInfo = {
 	appId: string
@@ -52,15 +52,17 @@ export class miniAppSanbox extends PageInstance {
 		const entryPagePath: string = this.appInfo.pagePath || this.appConfig.app.entryPagePath
 		this.updateTargetPageColorStyle(entryPagePath)
 
-		const entryPageBridge = this.createBridge({})
+		const entryPageBridge = this.createBridge({
+			jscore: this.jscore,
+		})
 		this.bridgeList.push(entryPageBridge)
 		console.log(this.bridgeList)
 
 		this.hideLaunchScreen()
 	}
 
-	createBridge(otps: any) {
-		const bridge = new Bridge(otps)
+	createBridge(opts: IBridgeOpts) {
+		const bridge = new Bridge(opts)
 		bridge.parent = this
 
 		return bridge
@@ -121,7 +123,7 @@ export class miniAppSanbox extends PageInstance {
 		console.log('miniAppSanbox onPresentOut')
 	}
 
-	jscoreMessageHandler(msg: any) {
-		console.log('native miniAppSanbox: ', msg, this)
+	jscoreMessageHandler(msg: IMsg) {
+		console.log('native miniAppSanbox: ', msg)
 	}
 }
