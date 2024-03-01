@@ -10,7 +10,12 @@ class MessageManager {
 			console.log('Logic messageManager: ', msg)
 		})
 
-		this.message.send('from Logic messageManager')
+		setTimeout(() => {
+			this.message.send({
+				type: 'aaa',
+				body: { aaa: 'from Logic messageManager' },
+			})
+		}, 1000)
 	}
 }
 

@@ -1,8 +1,15 @@
 import { miniAppSanbox } from '../miniAppSanbox/miniAppSanbox'
+import mitt, { Handler } from 'mitt'
 
+export type IType = string
+export interface IMsg {
+	type: IType
+	body: any
+}
 export class JSCore {
 	parent: miniAppSanbox = null
 	worker: Worker = null
+	event = mitt()
 
 	constructor() {
 		this.init()
@@ -15,20 +22,21 @@ export class JSCore {
 		const urlObj = window.URL.createObjectURL(jsBlob)
 
 		this.worker = new Worker(urlObj)
-		this.bindEventListener()
-
-		setTimeout(() => {
-			this.worker.postMessage({
-				type: 'test',
-				body: { a: 'from Native JSCore.' },
-			})
-		}, 1000)
+		this.bindWorkerListener()
 	}
 
-	bindEventListener() {
+	postMessage(msg: IMsg) {
+		this.worker.postMessage(msg)
+	}
+
+	bindWorkerListener() {
 		this.worker.addEventListener('message', e => {
-			const msg = e.data
-			console.log('Native JSCore: ', msg)
+			const msg: IMsg = e.data
+			this.event.emit('message', msg)
 		})
+	}
+
+	addEventListener(type: IType, callback: Handler<any>) {
+		this.event.on(type, callback)
 	}
 }

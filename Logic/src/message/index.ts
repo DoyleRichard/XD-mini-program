@@ -1,6 +1,6 @@
-import mitt from 'mitt'
+import mitt, { Handler } from 'mitt'
 
-export type IType = any
+export type IType = string
 export interface IMsg {
 	type: IType
 	body: any
@@ -21,11 +21,11 @@ class Message {
 		})
 	}
 
-	receive(type: IType, callback: any) {
+	receive(type: IType, callback: Handler<any>) {
 		this.event.on(type, callback)
 	}
 
-	send(msg: any) {
+	send(msg: IMsg) {
 		global.postMessage(msg)
 	}
 }

@@ -34,6 +34,7 @@ export class miniAppSanbox extends PageInstance {
 		super()
 		this.appInfo = opts
 		this.jscore.parent = this
+		this.jscore.addEventListener('message', this.jscoreMessageHandler.bind(this))
 		this.rootElement.classList.add('wx-native-view')
 	}
 
@@ -118,5 +119,9 @@ export class miniAppSanbox extends PageInstance {
 
 	onPresentOut() {
 		console.log('miniAppSanbox onPresentOut')
+	}
+
+	jscoreMessageHandler(msg: any) {
+		console.log('native miniAppSanbox: ', msg, this)
 	}
 }
