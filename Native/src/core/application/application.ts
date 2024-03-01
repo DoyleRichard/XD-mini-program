@@ -3,7 +3,7 @@ import { Device, IBarColor } from '../device/device'
 import './application.less'
 import { MiniAppList } from '@native/pages/miniAppList/miniAppList'
 import { sleep } from '@native/utils/util'
-import { miniAppSanbox } from '../miniAppSanbox/miniAppSanbox'
+import { miniAppSandbox } from '../miniAppSandbox/miniAppSandbox'
 
 export class Application {
 	rootElement: HTMLDivElement = document.createElement('div')
@@ -92,7 +92,7 @@ export class Application {
 		lowerView.rootElement.classList.remove('wx-native-view--enter-anima')
 	}
 
-	async presentView(view: miniAppSanbox, useCache = false) {
+	async presentView(view: miniAppSandbox, useCache = false) {
 		if (!this.done) {
 			return
 		}

@@ -1,4 +1,4 @@
-import { miniAppSanbox } from '../miniAppSanbox/miniAppSanbox'
+import { miniAppSandbox } from '../miniAppSandbox/miniAppSandbox'
 import mitt, { Handler } from 'mitt'
 
 export type IType = string
@@ -7,7 +7,7 @@ export interface IMsg {
 	body: any
 }
 export class JSCore {
-	parent: miniAppSanbox = null
+	parent: miniAppSandbox = null
 	worker: Worker = null
 	event = mitt()
 

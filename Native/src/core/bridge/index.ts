@@ -1,5 +1,5 @@
 import { IMsg, JSCore } from '../jscore'
-import { miniAppSanbox } from '../miniAppSanbox/miniAppSanbox'
+import { miniAppSandbox } from '../miniAppSandbox/miniAppSandbox'
 
 export type IBridgeOpts = {
 	jscore: JSCore
@@ -8,7 +8,7 @@ export class Bridge {
 	id: string = `bridge_${Math.random().toString()}`
 	webview: any = null
 	jscore: JSCore = null
-	parent: miniAppSanbox = null
+	parent: miniAppSandbox = null
 	opts: any = {}
 
 	constructor(opts: IBridgeOpts) {

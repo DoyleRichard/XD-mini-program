@@ -1,5 +1,5 @@
-import './miniAppSanbox.less'
-import tpl from './miniAppSanbox.html'
+import './miniAppSandbox.less'
+import tpl from './miniAppSandbox.html'
 import { PageInstance } from '@native/pages/page'
 import { Application } from '../application/application'
 import { IBarColor } from '../device/device'
@@ -21,7 +21,7 @@ export type IAppConfig = {
 	app: Record<string, any>
 	modules: Record<string, any>
 }
-export class miniAppSanbox extends PageInstance {
+export class miniAppSandbox extends PageInstance {
 	id: string = Math.random().toString()
 	appInfo: IAppInfo = null
 	parent: Application = null
@@ -47,7 +47,7 @@ export class miniAppSanbox extends PageInstance {
 	async initPage() {
 		await this.jscore.init()
 		this.jscore.addEventListener('message', this.jscoreMessageHandler.bind(this))
-		this.jscore.postMessage({ type: 'test', body: { a: 'from native miniAppSanbox' } })
+		this.jscore.postMessage({ type: 'test', body: { a: 'from native miniAppSandbox' } })
 
 		const configPath = `${this.appInfo.appId}/config.json`
 		const configContent = await readFile(configPath)
@@ -117,14 +117,14 @@ export class miniAppSanbox extends PageInstance {
 	}
 
 	onPresentIn() {
-		console.log('miniAppSanbox onPresentIn')
+		console.log('miniAppSandbox onPresentIn')
 	}
 
 	onPresentOut() {
-		console.log('miniAppSanbox onPresentOut')
+		console.log('miniAppSandbox onPresentOut')
 	}
 
 	jscoreMessageHandler(msg: IMsg) {
-		console.log('native miniAppSanbox: ', msg)
+		console.log('native miniAppSandbox: ', msg)
 	}
 }
