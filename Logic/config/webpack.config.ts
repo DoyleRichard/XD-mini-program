@@ -15,7 +15,7 @@ const config: webpack.Configuration = {
 	resolve: {
 		extensions: ['.js', '.ts', '.less', '.html'],
 		alias: {
-			'@native': path.resolve(__dirname, '../src'),
+			'@logic': path.resolve(__dirname, '../src'),
 		},
 	},
 	module: {

@@ -56,7 +56,7 @@ export function readFile(filePath: string): Promise<any> {
 	})
 }
 
-export function mergePageConfig(appConfig: Record<string, any>, pageConfig: Record<string, any>) {
+export function mergePageConfig(appConfig: Record<string, any>, pageConfig: Record<string, any>): Record<string, any> {
 	const result: any = {}
 	const appWindowConfig = appConfig.window || {}
 	const pagePrivateConfig = pageConfig || {}

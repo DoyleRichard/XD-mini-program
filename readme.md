@@ -8,8 +8,6 @@ Node 16+
 
 ```bash
 cd Native/
-npm install
-npm run appCompile
 npm run nativeDev
 ```
 
@@ -24,9 +22,7 @@ npm run appDev
 
 ```bash
 cd Logic/
-npm install
-npm run appCompile
-npm run nativeDev
+npm run logicDev
 ```
 
 打开另一个终端，运行 logic express server

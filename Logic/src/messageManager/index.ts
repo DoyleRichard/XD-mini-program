@@ -1,4 +1,4 @@
-import message from '@native/message'
+import message from '@logic/message'
 
 class MessageManager {
 	message = message

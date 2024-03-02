@@ -4,9 +4,10 @@ import { PageInstance } from '@native/pages/page'
 import { Application } from '../application/application'
 import { IBarColor } from '../device/device'
 import { AppManager } from '../appManager/appManager'
-import { mergePageConfig, readFile } from '@native/utils/util'
+import { mergePageConfig, readFile, sleep } from '@native/utils/util'
 import { Bridge, IBridgeOpts } from '../bridge'
 import { IMsg, JSCore } from '../jscore'
+import { Webview } from '../webview/webview'
 
 export type IAppInfo = {
 	appId: string
@@ -29,6 +30,7 @@ export class miniAppSandbox extends PageInstance {
 	appConfig: IAppConfig = null
 	bridgeList: Bridge[] = []
 	jscore: JSCore = new JSCore()
+	webviewsContainer: HTMLDivElement = null
 
 	constructor(opts: IAppInfo) {
 		super()
@@ -55,22 +57,31 @@ export class miniAppSandbox extends PageInstance {
 		const entryPagePath: string = this.appInfo.pagePath || this.appConfig.app.entryPagePath
 		this.updateTargetPageColorStyle(entryPagePath)
 
-		const entryPageBridge = this.createBridge({ jscore: this.jscore })
+		const pageConfig = this.appConfig.modules[entryPagePath]
+		const entryPageBridge = this.createBridge({
+			jscore: this.jscore,
+			configInfo: mergePageConfig(this.appConfig.app, pageConfig),
+			isRoot: true,
+		})
 		this.bridgeList.push(entryPageBridge)
 		console.log(this.bridgeList)
 
+		// 模拟2秒加载时间
+		await sleep(2000)
 		this.hideLaunchScreen()
 	}
 
 	createBridge(opts: IBridgeOpts) {
 		const bridge = new Bridge(opts)
 		bridge.parent = this
+		bridge.init()
 
 		return bridge
 	}
 
 	initPageFrame() {
 		this.rootElement.innerHTML = tpl
+		this.webviewsContainer = this.rootElement.querySelector('.wx-mini-app__webviews')
 	}
 
 	showLaunchScreen() {
@@ -84,7 +95,10 @@ export class miniAppSandbox extends PageInstance {
 		launchScreen.style.display = 'block'
 	}
 
-	hideLaunchScreen() {}
+	hideLaunchScreen() {
+		const startPage = this.rootElement.querySelector('.wx-mini-app__launch-screen') as HTMLDivElement
+		startPage.style.display = 'none'
+	}
 
 	updateActionColorStyle(color: IBarColor) {
 		const action = this.rootElement.querySelector('.wx-mini-app-navigation__actions')

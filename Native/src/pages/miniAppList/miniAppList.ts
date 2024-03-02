@@ -90,6 +90,7 @@ export class MiniAppList {
 	}
 
 	onPresentIn() {
+		this.parent.updateStatusBarColor('black')
 		console.log('miniAppList onPresentIn')
 	}
 

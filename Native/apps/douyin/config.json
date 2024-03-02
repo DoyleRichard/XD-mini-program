@@ -3,7 +3,6 @@
 		"entryPagePath": "pages/home/index",
 		"pages": ["pages/home/index", "pages/detail/index"],
 		"window": {
-			"navigationStyle": "custom",
 			"backgroundColor": "#000000"
 		},
 		"networkTimeout": {},
@@ -13,6 +12,7 @@
 		"pages/home/index": {
 			"navigationBarTextStyle": "white",
 			"backgroundColor": "#000",
+			"navigationBarTitleText": "+7's",
 			"usingComponents": {}
 		},
 		"pages/detail/index": {

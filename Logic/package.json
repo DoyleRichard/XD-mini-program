@@ -8,10 +8,10 @@
 		"appServe": "node app.js",
 		"appDev": "npm run appCompile & npm run appServe",
 		"formatCode": "prettier . --write",
-		"nativeBuild": "webpack --config ./config/webpack.config.ts",
-		"nativeBuildWatch": "webpack --config ./config/webpack.config.ts --watch",
-		"nativeDev": "webpack --config ./config/webpack.config.ts --watch",
-		"dev": "npm run formatCode & npm run nativeBuild & npm run appDev"
+		"logicBuild": "webpack --config ./config/webpack.config.ts",
+		"logicBuildWatch": "webpack --config ./config/webpack.config.ts --watch",
+		"logicDev": "webpack --config ./config/webpack.config.ts --watch",
+		"dev": "npm run formatCode & npm run logicBuild & npm run appDev"
 	},
 	"author": "Doyle Richard",
 	"license": "MIT",

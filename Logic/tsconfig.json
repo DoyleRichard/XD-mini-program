@@ -10,7 +10,7 @@
 		"moduleResolution": "node",
 		"baseUrl": "./",
 		"paths": {
-			"@native/*": ["./src/*"]
+			"@logic/*": ["./src/*"]
 		}
 	},
 	"ts-node": {
