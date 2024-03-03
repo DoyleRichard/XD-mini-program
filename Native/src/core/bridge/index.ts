@@ -34,6 +34,9 @@ export class Bridge {
 			isRoot: this.opts.isRoot,
 		})
 		webview.parent = this
+		webview.init(() => {
+			webview.postMessage({ type: 'test_ui', body: { aaa: 'from webview' } })
+		})
 		this.parent.webviewsContainer.appendChild(webview.rootElement)
 	}
 }

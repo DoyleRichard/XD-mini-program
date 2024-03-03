@@ -7,7 +7,6 @@ import { AppManager } from '../appManager/appManager'
 import { mergePageConfig, readFile, sleep } from '@native/utils/util'
 import { Bridge, IBridgeOpts } from '../bridge'
 import { IMsg, JSCore } from '../jscore'
-import { Webview } from '../webview/webview'
 
 export type IAppInfo = {
 	appId: string
