@@ -10,6 +10,14 @@
 	<!-- iframe -->
 	<div class="wx-native-webview__body">
 		<div class="wx-native-webview__root">
+			<!--
+				发现的问题
+				写成 src="http://127.0.0.1:6324/page_frame/"
+				或者 src="http://localhost:6324/page_frame/"
+				会在 HTMLIFrameElement.contentWindow 拿不到目标 window
+				参考 https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/contentWindow
+				`Note that this only works if the iframe's window is same-origin with its parent`
+			-->
 			<iframe class="wx-native-webview__window" src="/page_frame" frameborder="0"></iframe>
 		</div>
 	</div>
