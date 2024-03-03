@@ -2,7 +2,7 @@
 	"name": "native",
 	"version": "1.0.0",
 	"description": "client",
-	"main": "index.js",
+	"main": "app.ts",
 	"scripts": {
 		"appCompile": "tsc -p ./config/app.tsconfig.json",
 		"appServe": "node app.js",

@@ -2,7 +2,7 @@
 	"name": "logic",
 	"version": "1.0.0",
 	"description": "miniprogram logical process",
-	"main": "index.js",
+	"main": "app.ts",
 	"scripts": {
 		"appCompile": "tsc -p ./config/app.tsconfig.json",
 		"appServe": "node app.js",
@@ -43,6 +43,7 @@
 		"node-notifier": "^10.0.1",
 		"nyc": "^15.1.0",
 		"postcss-loader": "^8.1.0",
+		"prettier": "^3.2.5",
 		"ts-loader": "^9.5.1",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3",
