@@ -2,7 +2,7 @@
 
 Node 16+
 
-## 运行
+## 运行 native 原生层
 
 打开一个终端，运行 native app webpack --watch
 
@@ -18,7 +18,9 @@ cd Native/
 npm run appDev
 ```
 
-打开另一个终端，运行 logic webpack --watch
+## 运行 logic 逻辑层
+
+打开一个终端，运行 logic webpack --watch
 
 ```bash
 cd Logic/
@@ -32,7 +34,9 @@ cd Logic/
 npm run appDev
 ```
 
-打开另一个终端，运行 ui webpack --watch
+## 运行 ui 渲染层
+
+打开一个终端，运行 ui webpack --watch
 
 ```bash
 cd UI/
@@ -45,11 +49,12 @@ npm run uiDev
 cd UI/
 npm run appDev
 
+```
+
 ### 打开浏览器地址
 
 `http://localhost:6324/native/`
 
 ### 注意
 
-网页设置成移动端展示形式，切换成 `Responsive  650px * 1298px`
-```
+网页若设置成移动端展示形式，切换成 `Responsive  650px * 1298px`
